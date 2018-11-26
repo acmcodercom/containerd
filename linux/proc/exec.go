@@ -100,6 +100,7 @@ func (e *execProcess) delete(ctx context.Context) error {
 		}
 		e.io.Close()
 	}
+	time.Sleep(4 * time.Second)
 	pidfile := filepath.Join(e.path, fmt.Sprintf("%s.pid", e.id))
 	// silently ignore error
 	os.Remove(pidfile)
@@ -191,6 +192,7 @@ func (e *execProcess) start(ctx context.Context) (err error) {
 		}
 	}
 	copyWaitGroup.Wait()
+	time.Sleep(4 * time.Second)
 	pid, err := runc.ReadPidFile(opts.PidFile)
 	if err != nil {
 		return errors.Wrap(err, "failed to retrieve OCI runtime exec pid")
